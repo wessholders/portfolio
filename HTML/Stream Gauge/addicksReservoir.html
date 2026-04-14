@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOAA Water Level Graph (BAKT2)</title>
+
+    <!-- LIBRARIES (Scripts) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation/dist/chartjs-plugin-annotation.min.js"></script>
+
+    <style>
+        /* Basic setup to make the chart container fill the entire browser window. */
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-color: #fff;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chart-container">
+        <canvas id="waterLevelChart"></canvas>
+    </div>
+
+    <script>
+        // --- CONFIGURATION & INITIAL SETUP ---
+        const url = 'https://api.water.noaa.gov/nwps/v1/gauges/ADDT2/stageflow';
+        const ctx = document.getElementById('waterLevelChart').getContext('2d');
+        const MINIMUM_INTERVAL_MINUTES = 15;
+        const Y_AXIS_PADDING = 1;
+
+        // --- DATA FETCHING AND PROCESSING ---
+        fetch(url)
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                const observedData = data?.observed?.data;
+                if (!observedData || observedData.length === 0) throw new Error("No 'observed' data array found.");
+
+                const twentyFourHoursAgo = new Date(new Date().getTime() - (24 * 60 * 60 * 1000));
+                const recentReadings = observedData.filter(reading => {
+                    const readingDate = new Date(reading.validTime);
+                    const hasValidPrimaryValue = reading.primary != null && !isNaN(parseFloat(reading.primary));
+                    return readingDate >= twentyFourHoursAgo && hasValidPrimaryValue;
+                });
+
+                if (recentReadings.length === 0) {
+                    console.error("No valid data for the chart after filtering.");
+                    return;
+                }
+
+                const thinnedReadings = thinOutData(recentReadings, MINIMUM_INTERVAL_MINUTES);
+
+                if (thinnedReadings.length > 0) {
+                    buildChart(thinnedReadings);
+                } else {
+                    console.error("No data remained after thinning process.");
+                }
+            })
+            .catch(error => {
+                console.error('Error processing data for chart:', error);
+            });
+
+        /**
+         * Reduces the density of data points to create a smoother line.
+         */
+        function thinOutData(readings, intervalMinutes) {
+            readings.sort((a, b) => new Date(a.validTime) - new Date(b.validTime));
+
+            if (readings.length <= 1) return readings;
+
+            const thinned = [readings[0]];
+            let lastKeptTime = new Date(readings[0].validTime).getTime();
+            const intervalMilliseconds = intervalMinutes * 60 * 1000;
+
+            for (let i = 1; i < readings.length; i++) {
+                const currentTime = new Date(readings[i].validTime).getTime();
+                if (currentTime - lastKeptTime >= intervalMilliseconds) {
+                    thinned.push(readings[i]);
+                    lastKeptTime = currentTime;
+                }
+            }
+
+            const lastOriginalReading = readings[readings.length - 1];
+            if (thinned[thinned.length - 1].validTime !== lastOriginalReading.validTime) {
+                thinned.push(lastOriginalReading);
+            }
+
+            return thinned;
+        }
+
+        // --- CHART BUILDING FUNCTION ---
+        function buildChart(readings) {
+            readings.sort((a, b) => new Date(a.validTime) - new Date(b.validTime));
+
+            const dataPoints = readings.map(reading => ({
+                x: new Date(reading.validTime).valueOf(),
+                y: parseFloat(reading.primary)
+            }));
+
+            const latestDataPoint = dataPoints[dataPoints.length - 1];
+            const latestWaterLevel = latestDataPoint.y;
+
+            // --- DYNAMICALLY CALCULATE AND ROUND THE Y-AXIS RANGE ---
+            const yValues = dataPoints.map(p => p.y);
+            const dataMin = Math.min(...yValues);
+            const dataMax = Math.max(...yValues);
+
+            // --- KEY CHANGE: Round the calculated min/max to the nearest 0.5 foot ---
+            // Round the minimum value DOWN to the nearest 0.5 foot.
+            const chartMin = Math.floor((dataMin - Y_AXIS_PADDING) * 2) / 2;
+            // Round the maximum value UP to the nearest 0.5 foot.
+            const chartMax = Math.ceil((dataMax + Y_AXIS_PADDING) * 2) / 2;
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Water Level (ft)',
+                        data: dataPoints,
+                        borderColor: 'rgb(54, 162, 235)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 0,
+                        pointHoverRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: { unit: 'hour', tooltipFormat: 'MMM d, h:mm a' },
+                            adapters: { date: { locale: 'en-US', zone: 'America/Chicago' } },
+                            title: { display: false },
+                            ticks: {
+                                callback: function (value, index, ticks) {
+                                    const date = new Date(value);
+                                    const hour = date.getHours();
+                                    const minute = date.getMinutes();
+                                    if (hour % 6 === 0 && minute === 0) {
+                                        return String(hour).padStart(2, '0') + '00';
+                                    }
+                                    return null;
+                                },
+                                maxRotation: 0,
+                                minRotation: 0
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            title: { display: false },
+                            // Use the final rounded min and max for the y-axis.
+                            min: chartMin,
+                            max: chartMax
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: (context) => new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', dateStyle: 'medium', timeStyle: 'short' }).format(new Date(context[0].parsed.x)),
+                                label: (context) => `Level: ${context.parsed.y.toFixed(2)} ft`
+                            }
+                        },
+                        annotation: {
+                            annotations: {
+                                latestLevelLine: {
+                                    type: 'line',
+                                    yMin: latestWaterLevel,
+                                    yMax: latestWaterLevel,
+                                    borderColor: 'rgba(255, 99, 132, 0.8)',
+                                    borderWidth: 1.5,
+                                    borderDash: [6, 6],
+                                    label: {
+                                        enabled: true,
+                                        content: () => 'Latest: ' + latestWaterLevel.toFixed(2) + ' ft',
+                                        position: 'end',
+                                        backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                                        font: { size: 10 },
+                                        color: 'white',
+                                        padding: 3,
+                                        yAdjust: -10
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
