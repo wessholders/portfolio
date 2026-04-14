@@ -1,4 +1,3 @@
-
 # GeoJSON & Excel Conversion Utilities
 
 ## Overview
@@ -11,11 +10,11 @@ These scripts are ideal for users who manage spatial data in spreadsheets but ne
 
 ## Scripts
 
-1.  **`excel_to_geojson.py`**
+1.  **[`excel_to_geojson.py`](https://github.com/wessholders/portfolio/blob/main/python/excel%20and%20GEOJSON%20Integration/excel_to_geojson.py)**
     *   **Purpose:** Converts an Excel file with latitude and longitude columns into a valid GeoJSON file of Point features.
     *   **Use Case:** Preparing spreadsheet data for use in web maps (e.g., Leaflet, Mapbox, Esri ArcGIS Online).
 
-2.  **`geojson_to_excel.py`**
+2.  **[`geojson_to_excel.py`](https://github.com/wessholders/portfolio/blob/main/python/excel%20and%20GEOJSON%20Integration/geojson_to_excel.py)**
     *   **Purpose:** Converts a GeoJSON file into an Excel spreadsheet. It extracts all feature properties and adds the latitude and longitude as separate columns.
     *   **Use Case:** Exporting data from a web map or GIS application for easy review, bulk editing, or analysis in Excel.
 
