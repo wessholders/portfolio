@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galveston Boat Ramps</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <!-- NEW: Information Sidebar -->
+    <div id="info-sidebar">
+        <button id="close-sidebar-btn">&times;</button>
+        <div id="sidebar-content">
+            <!-- Ramp details will be populated here -->
+        </div>
+    </div>
+    <header>
+        <h1>Galveston Boat Ramps</h1>
+        <div id="tide-widget">
+            <!-- Tide data will be dynamically inserted here by JavaScript -->
+        </div>
+    </header>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+
+
+
+    <div id="lightbox">
+        <button id="lightbox-close">&times;</button>
+        <button id="lightbox-prev" class="lightbox-arrow">&lt;</button>
+        <img src="">
+        <button id="lightbox-next" class="lightbox-arrow">&gt;</button>
+    </div>
+</body>
+</body>
+
+</html>

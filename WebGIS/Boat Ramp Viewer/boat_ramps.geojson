@@ -1,0 +1,357 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "61st Street Ramp",
+                "access": "Public",
+                "lanes": 2,
+                "fee": 0.0,
+                "vessel_size": "Any",
+                "minimum_tide": "Low",
+                "optimal_wind": 90,
+                "gas": "No",
+                "notes": "Popular fishing access",
+                "image_url": [
+                    "https://www.visitgalveston.com/imager/files_idss_com/C27/24033433-90d1-4ed4-97c9-e101d207ac5d_e45adf5f6bc0c5c2a30a39868f44eab6.jpg",
+                    "https://www.visitgalveston.com/imager/files_idss_com/C27/cc4c5c25-f13e-4b07-8866-3f4a0c3b6124_e45adf5f6bc0c5c2a30a39868f44eab6.jpg",
+                    "https://www.visitgalveston.com/imager/files_idss_com/C27/f5e9bb2a-eab0-4673-bc70-886139360ee7_e45adf5f6bc0c5c2a30a39868f44eab6.jpg",
+                    "https://www.visitgalveston.com/imager/files_idss_com/C27/0dfda09c-7588-49ee-86a7-dafa29f9eedc_e45adf5f6bc0c5c2a30a39868f44eab6.jpg"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.83666,
+                    29.28532
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Broadway Ramp",
+                "access": "Public",
+                "lanes": 2,
+                "fee": 5.0,
+                "vessel_size": "Any",
+                "minimum_tide": "Low",
+                "optimal_wind": 30,
+                "gas": "No",
+                "notes": "Closest to mainland",
+                "image_url": [
+                    "https://images.gofundme.com/xdvrTTO2MBulwy1Jv-ztY5w0vFA=/1200x900/https://d2g8igdw686xgo.cloudfront.net/59992163_163179975789174_r.jpeg"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.87392,
+                    29.28884
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Waterman's Ramp",
+                "access": "Public",
+                "lanes": 2,
+                "fee": 20.0,
+                "minimum_tide": "Low",
+                "optimal_wind": 150,
+                "gas": "No",
+                "notes": "Fee to launch",
+                "image_url": [
+                    "https://images1.loopnet.com/i2/Pog_Yo2lLCMQBYpope9BIsn7ui19k-Pyt_NYnpij6DA/110/14302-Stewart-Rd-Galveston-TX-Aerial-1-Large.jpg"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.94919,
+                    29.20766
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Sea Isle Ramp",
+                "access": "Private",
+                "lanes": 2,
+                "minimum_tide": "Low",
+                "optimal_wind": 150,
+                "gas": "Yes",
+                "notes": "Private keyed access"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -95.04645,
+                    29.14401
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "San Luis Pass Park Ramp",
+                "access": "Public",
+                "lanes": 2,
+                "fee": 0.0,
+                "minimum_tide": "Low",
+                "optimal_wind": 90,
+                "gas": "No",
+                "notes": "Close to San Luis Pass",
+                "image_url": [
+                    "https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/459907274_946906524134483_663692635991209120_n.jpg?stp=dst-jpegr_p180x540_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=wa1NmZ1nswkQ7kNvwESUaZh&_nc_oc=AdoEKcCYRcc3pgOwLZ3mPJ8x7NBu-nPxJVQcrnBAZ6xZAb9R15X0yCJE7IJwItrZCoY&_nc_zt=23&se=-1&_nc_ht=scontent-sjc3-1.xx&_nc_gid=sB-3Q4VRgYMlBU33iygGWQ&_nc_ss=7a389&oh=00_AfzWPQnOtZ4NQqMaUWxeVlwtw9pdPhVFF1YHJPDbzahN5w&oe=69D0AE7F"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -95.13051,
+                    29.07872
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Crash Basin Launch",
+                "access": "Public",
+                "lanes": 1,
+                "fee": 0.0,
+                "minimum_tide": "High",
+                "optimal_wind": 115,
+                "gas": "No",
+                "notes": "Needs to be a small vessel"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.87357,
+                    29.26641
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "103rd St Launch",
+                "access": "Public",
+                "lanes": 1,
+                "fee": 0.0,
+                "minimum_tide": "Low",
+                "optimal_wind": 165,
+                "gas": "Np",
+                "notes": "Needs to be a small vessel"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.88094,
+                    29.27242
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Fat Boy's Ramp",
+                "access": "Public",
+                "lanes": 2,
+                "fee": 0.0,
+                "minimum_tide": "High",
+                "optimal_wind": 50,
+                "gas": "No",
+                "notes": "Very shallow on the edges of the channel",
+                "image_url": [
+                    "https://www.2coolfishing.com/attachments/i-45-ramp-after-north-wind-jpg.4422383/"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.90661,
+                    29.30681
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Harborwalk Ramp",
+                "access": "Private",
+                "lanes": 2,
+                "fee": 20.0,
+                "minimum_tide": "Low",
+                "optimal_wind": 20,
+                "gas": "Yes",
+                "notes": "$20 fee to launch, very nice facilities.",
+                "image_url": [
+                    "http://harborwalk.com/wp-content/uploads/2013/07/Community_3_VM.png"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.9666,
+                    29.29515
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Chocolate Bayou Ramp",
+                "access": "Public",
+                "lanes": 1,
+                "fee": 0.0,
+                "minimum_tide": "High",
+                "optimal_wind": 130,
+                "gas": "No",
+                "notes": "Can apparently be unsafe parking."
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -95.20826,
+                    29.21172
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "TCD #5",
+                "access": "Public",
+                "lanes": 3,
+                "fee": 0.0,
+                "minimum_tide": "Low",
+                "optimal_wind": 220,
+                "gas": "No",
+                "notes": "Can be rough water in E wind",
+                "image_url": [
+                    "https://www.texascitytx.gov/ImageRepository/Document?documentID=1145",
+                    "https://www.texascitytx.gov/ImageRepository/Document?documentID=534"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.81526,
+                    29.3665
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "TCD #4",
+                "access": "Public",
+                "lanes": 2,
+                "fee": 0.0,
+                "minimum_tide": "High",
+                "optimal_wind": 220,
+                "gas": "No",
+                "notes": "In rough shape",
+                "image_url": [
+                    "https://www.texascitytx.gov/ImageRepository/Document?documentID=529"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.83661,
+                    29.37436
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "TCD #2",
+                "access": "Public",
+                "lanes": 1,
+                "fee": 0.0,
+                "minimum_tide": "High",
+                "optimal_wind": 210,
+                "gas": "No",
+                "notes": "Best for small vessels"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.87474,
+                    29.38669
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "TCD #1",
+                "access": "Public",
+                "lanes": 2,
+                "fee": 0.0,
+                "minimum_tide": "Low",
+                "optimal_wind": 220,
+                "gas": "No"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.88484,
+                    29.39052
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "TCD # 3",
+                "access": "Public",
+                "lanes": 1,
+                "fee": 0.0,
+                "minimum_tide": "Low",
+                "optimal_wind": 20,
+                "gas": "No",
+                "notes": "Good access for West Bay"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.86678,
+                    29.3836
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Galveston Yacht Marina",
+                "access": "Public",
+                "lanes": 2,
+                "fee": 15.0,
+                "minimum_tide": "Low",
+                "optimal_wind": 70,
+                "gas": "Yes",
+                "notes": "Annual Pass available for $300",
+                "image_url": [
+                    "https://galvestonyachtbasin.com/wp-content/uploads/2022/03/123_1.jpeg",
+                    "https://galvestonyachtbasin.com/wp-content/uploads/2022/03/123_1-1.jpeg"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.7775,
+                    29.31754
+                ]
+            }
+        }
+    ]
+}

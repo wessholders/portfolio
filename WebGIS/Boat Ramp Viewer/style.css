@@ -1,0 +1,436 @@
+/* =========================================== */
+/*  STYLE.CSS (CORRECTED & FINAL)              */
+/* =========================================== */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+header {
+    height: 60px;
+    background-color: #1f2937;
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+}
+
+#map {
+    height: calc(100vh - 60px);
+    width: 100%;
+}
+
+/* --- WEATHER PANEL (CORRECTED) --- */
+.weather-panel {
+    position: absolute;
+    /* CORRECTED: Set top position relative to header */
+    top: 10px;
+    left: 10px;
+    background: #1f2937;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    line-height: 1.3;
+    color: #ffffff;
+    width: 135px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: left 0.4s ease-in-out;
+    z-index: 1001;
+}
+
+/* Weather panel text styles */
+.weather-panel .temp-large {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    color: #4996d2;
+}
+
+.weather-panel .description {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.weather-panel .details {
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.weather-panel .water-temp {
+    font-size: 14px;
+    font-weight: normal;
+    color: #00bfff;
+    margin-top: 4px;
+}
+
+
+/* --- TIDE WIDGET STYLES (UNCHANGED) --- */
+#tide-widget {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#tide-widget-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #b0c4de;
+}
+
+.tide-pill {
+    position: relative;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.tide-pill.high-tide {
+    background-color: #007bff;
+}
+
+.tide-pill.low-tide {
+    background-color: #dc3545;
+}
+
+.tide-pill.next-tide {
+    transform: scale(1.1);
+    border: 2px solid yellow;
+}
+
+.tide-pill-time {
+    display: block;
+    font-size: 1em;
+}
+
+.tide-pill-level {
+    display: block;
+    font-size: 0.8em;
+    opacity: 0.8;
+}
+
+.tide-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: opacity 0.3s;
+    z-index: 1010;
+}
+
+.tide-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.tide-pill:hover .tide-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/* --- SIDEBAR AND NEW FEATURES (CORRECTED) --- */
+
+/* Main Sidebar Container */
+#info-sidebar {
+    position: absolute;
+    top: 60px;
+    left: -350px;
+    width: 350px;
+    height: calc(100vh - 60px);
+    background: #fff;
+    z-index: 1001;
+    transition: left 0.4s ease-in-out;
+    box-shadow: 3px 0 6px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+}
+
+/* CORRECTED: 'X' button is positioned inside the sidebar content area */
+#close-sidebar-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1003;
+    /* Must be on top of sidebar content */
+}
+
+/* Sidebar Content & Scrolling */
+#sidebar-content {
+    position: relative;
+    /* Needed for the absolute positioning of the button */
+    padding: 0;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* Main Image */
+.sidebar-image-container {
+    width: 100%;
+    height: 200px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+.sidebar-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Image Gallery Thumbnails */
+.sidebar-gallery {
+    display: flex;
+    gap: 5px;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+}
+
+.gallery-thumbnail {
+    width: 60px;
+    height: 60px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.gallery-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-thumbnail:hover {
+    border-color: #007bff;
+}
+
+/* Text content below images */
+.sidebar-text-content {
+    padding: 20px;
+}
+
+.sidebar-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+}
+
+.sidebar-access {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.sidebar-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.detail-item {
+    font-size: 14px;
+}
+
+.detail-item strong {
+    display: block;
+    color: #666;
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+
+.sidebar-notes {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.sidebar-notes h3 {
+    font-size: 14px;
+    margin: 0 0 5px 0;
+}
+
+.sidebar-notes p {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Image Lightbox (Popup) */
+#lightbox {
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+#lightbox.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+}
+
+/* --- ACTIVE STATE FOR SLIDING ANIMATIONS --- */
+body.sidebar-active #info-sidebar {
+    left: 0;
+}
+
+body.sidebar-active .weather-panel {
+    left: 360px;
+}
+
+/* --- NEW: Container for gallery and arrows --- */
+.sidebar-gallery-container {
+    position: relative;
+    /* For positioning the arrows */
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    /* Vertical padding */
+    background-color: #f0f0f0;
+}
+
+/* Modify existing gallery to allow smooth scrolling and hide the scrollbar */
+.sidebar-gallery {
+    display: flex;
+    gap: 5px;
+    padding: 0 10px;
+    /* Space from the arrows */
+    overflow-x: scroll;
+    /* Allow horizontal scrolling */
+    scrollbar-width: none;
+    /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none;
+    /* Hide scrollbar for IE/Edge */
+    scroll-behavior: smooth;
+    /* Animate the scroll */
+}
+
+/* Hide scrollbar for Chrome/Safari/Opera */
+.sidebar-gallery::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* --- NEW: Arrow Button Styling --- */
+.gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 5;
+    transition: background-color 0.2s;
+}
+
+.gallery-arrow:hover {
+    background-color: white;
+}
+
+/* Position left and right arrows */
+.gallery-arrow.left {
+    left: 5px;
+}
+
+.gallery-arrow.right {
+    right: 5px;
+}
+
+/* In style.css, add these new rules */
+
+/* --- Lightbox Arrow and Close Buttons --- */
+.lightbox-arrow,
+#lightbox-close {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 2001;
+    /* On top of the lightbox background */
+    padding: 10px 15px;
+    transition: background-color 0.2s;
+}
+
+.lightbox-arrow:hover,
+#lightbox-close:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+#lightbox-prev {
+    left: 20px;
+}
+
+#lightbox-next {
+    right: 20px;
+}
+
+#lightbox-close {
+    top: 20px;
+    right: 20px;
+    transform: none;
+    /* Override the vertical centering */
+    padding: 5px 12px;
+}
