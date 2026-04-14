@@ -2,9 +2,13 @@
 
 ## Overview
 
-This HTML file provides a self-contained, embeddable widget that displays a detailed 24-hour water level chart for a specific NOAA streamgauge. It fetches real-time data directly from the NOAA Water API, processes it, and renders a clean, responsive line chart using Chart.js.
+This HTML file provides a self-contained, embeddable widget that displays a detailed 24-hour water level chart for a specific NOAA streamgauge. It fetches real-time data directly from the NOAA Water API and renders a clean, responsive line chart using Chart.js.
 
-While map-based platforms provide an excellent overview of gauge locations and current conditions, this widget is designed for a **detailed, historical deep-dive on a single gauge**.
+While map-based platforms provide an excellent overview of gauge locations, this widget is designed for a **detailed, historical deep-dive on a single gauge**.
+
+### Example Widget
+
+![Addicks Stream Gauge Widget Screenshot](https://github.com/wessholders/portfolio/blob/main/HTML/Stream%20Gauge/screenshots/addicksStreamGaugeWidget.png?raw=true)
 
 ---
 
@@ -22,10 +26,10 @@ This allows users to go from a macro, geographic view to a micro, time-series an
 
 *   **Real-time Data:** Fetches the latest streamgauge data directly from the NOAA API.
 *   **24-Hour View:** Filters and displays only the data from the last 24 hours.
-*   **Responsive Chart:** The chart automatically resizes to fit its container.
+*   **Dynamically Resizable:** The chart is fully responsive and automatically resizes to fit its container, making it ideal for various dashboard layouts and screen sizes.
+*   **Current Level Indicator:** A **red, dashed horizontal line** indicates the current (most recent) water level for at-a-glance status checks.
 *   **Data Thinning:** Reduces data density to ensure a smooth, clean line graph.
 *   **Dynamic Y-Axis:** The vertical axis automatically scales based on the 24-hour water levels.
-*   **Latest Reading Annotation:** A dashed horizontal line clearly marks the most recent reading.
 *   **Timezone Aware:** All times are displayed in the `America/Chicago` timezone.
 *   **Interactive Tooltips:** Hovering over the chart reveals tooltips with the precise date, time, and water level.
 
