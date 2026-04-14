@@ -2,9 +2,19 @@
 
 ## Overview
 
-This HTML file provides a self-contained, embeddable widget that displays a 24-hour water level chart for a specific NOAA streamgauge. It fetches real-time data from the NOAA Water API, processes it, and renders a clean, responsive line chart using Chart.js.
+This HTML file provides a self-contained, embeddable widget that displays a detailed 24-hour water level chart for a specific NOAA streamgauge. It fetches real-time data directly from the NOAA Water API, processes it, and renders a clean, responsive line chart using Chart.js.
 
-The chart is designed to be easily embedded into dashboards or other web pages using an `<iframe>`.
+While map-based platforms provide an excellent overview of gauge locations and current conditions, this widget is designed for a **detailed, historical deep-dive on a single gauge**.
+
+---
+
+## Esri Living Atlas & Dashboard Integration
+
+This widget is an ideal companion to the **USA Live Stream Gauges layer** found in the **Esri Living Atlas of the World**.
+
+You can use an Esri map to visualize the location and status of all gauges, and then use this widget to embed a detailed 24-hour chart for a specific gauge of interest directly into an **Esri Dashboard** or **Experience Builder** application.
+
+This allows users to go from a macro, geographic view to a micro, time-series analysis without leaving the application.
 
 ---
 
@@ -12,10 +22,10 @@ The chart is designed to be easily embedded into dashboards or other web pages u
 
 *   **Real-time Data:** Fetches the latest streamgauge data directly from the NOAA API.
 *   **24-Hour View:** Filters and displays only the data from the last 24 hours.
-*   **Responsive Chart:** The chart automatically resizes to fit its container, making it suitable for various dashboard layouts.
-*   **Data Thinning:** Reduces the number of data points to ensure a smooth, clean line graph without sacrificing accuracy.
-*   **Dynamic Y-Axis:** The vertical axis automatically scales based on the water levels in the 24-hour period.
-*   **Latest Reading Annotation:** A dashed horizontal line clearly marks the most recent water level reading.
+*   **Responsive Chart:** The chart automatically resizes to fit its container.
+*   **Data Thinning:** Reduces data density to ensure a smooth, clean line graph.
+*   **Dynamic Y-Axis:** The vertical axis automatically scales based on the 24-hour water levels.
+*   **Latest Reading Annotation:** A dashed horizontal line clearly marks the most recent reading.
 *   **Timezone Aware:** All times are displayed in the `America/Chicago` timezone.
 *   **Interactive Tooltips:** Hovering over the chart reveals tooltips with the precise date, time, and water level.
 
@@ -36,7 +46,7 @@ This widget relies on three external JavaScript libraries delivered via a Conten
 ## How it Works
 
 1.  **Data Fetching:** On page load, a `fetch` request is sent to the NOAA NWPS API for the specified gauge.
-2.  **Data Processing:** The JSON response is parsed, and the data is filtered to include only valid readings from the past 24 hours. A thinning algorithm is applied to reduce data density for a cleaner visual.
+2.  **Data Processing:** The JSON response is parsed, and the data is filtered to include only valid readings from the past 24 hours.
 3.  **Chart Rendering:** The processed data is passed to Chart.js, which renders a responsive line chart on the HTML `<canvas>` element.
 
 ---
@@ -54,9 +64,17 @@ This widget can be used for **any NOAA streamgauge** that has stage/flow data av
     ```
 3.  Replace `ADDT2` with the desired NOAA gauge ID (e.g., `LBUT2`, `CHII2`, etc.).
 
-### Adjusting Data Thinning
+---
 
-To change the minimum time between data points on the chart, modify the `MINIMUM_INTERVAL_MINUTES` constant:
+## Usage & Embedding
 
-```javascript
-const MINIMUM_INTERVAL_MINUTES = 15; // Set to 0 to disable thinning
+### Standalone
+
+Simply open the `.html` file in any modern web browser to view the chart.
+
+### Embedding in a Dashboard or Experience
+
+This file is designed to be embedded into other web pages or platforms using an `<iframe>`. This is the method used to add it to Esri Dashboards (via the *Embedded Content* element) or Esri Experience Builder (via the *Embed* widget).
+
+```html
+<iframe src="/path/to/your/file.html" width="100%" height="300px" style="border:none;"></iframe>
