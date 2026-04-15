@@ -45,7 +45,6 @@ def geojson_to_excel_compatible(geojson_path, excel_path):
 
 if __name__ == '__main__':
     # Define your input and output file paths
-    # You would replace 'boat_ramps_with_images.geojson' with your actual file name
     input_file =  r'Path\To\Your\Output.geojson'
     output_file = r'Path\To\Your\Excel.xlsx'
 
