@@ -6,7 +6,7 @@ This Python script automates the generation of a detailed, organization-wide cre
 
 This process, which can take hours to perform manually through the web interface, is **completed in seconds** with this script. This automation saves valuable administrator time and resources by providing a quick, consolidated view of the organization's spending.
 
-The script connects to your ArcGIS Online organization, fetches the credit usage data for a specified time frame, and exports the results into a clean, easy-to-read Excel file (`.xlsx`).
+The script connects to your ArcGIS Online organization, fetches the credit usage data for a specified time frame, and exports the results into an Excel file (`.xlsx`).
 
 ---
 
