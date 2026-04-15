@@ -1,4 +1,3 @@
-
 # Esri ArcGIS Online Credit Usage Report Generator
 
 ## Overview
@@ -56,7 +55,7 @@ pip install arcgis pandas
 
 Before running the script, you must update the configuration variables within the file.
 
-1.  Open the `esriCreditUsageReport.py` file in a text editor.
+1.  Open the [esriCreditUsageReport.py](https://github.com/wessholders/portfolio/blob/main/python/Esri%20Credit%20Usage%20Report%20Generator/esriCreditUsageReport.py) file in a text editor.
 2.  Locate the configuration section at the top of the script.
 3.  Update the following variables:
     *   `portal_url`: The URL to your ArcGIS Online organization (e.g., `"https://yourorg.maps.arcgis.com"`).
