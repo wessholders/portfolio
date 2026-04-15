@@ -46,8 +46,8 @@ def geojson_to_excel_compatible(geojson_path, excel_path):
 if __name__ == '__main__':
     # Define your input and output file paths
     # You would replace 'boat_ramps_with_images.geojson' with your actual file name
-    input_file = r'C:\SWG\GIS\SCRIPTS\Learn JavaScript\Boat Ramps\boat_ramps.geojson'
-    output_file = r'C:\SWG\GIS\SCRIPTS\Learn JavaScript\Boat Ramps\python\outputs\boat_ramps.xlsx'
+    input_file =  r'Path\To\Your\Output.geojson'
+    output_file = r'Path\To\Your\Excel.xlsx'
 
     # Note: Make sure to save the new GeoJSON data you provided into the input_file path.
     geojson_to_excel_compatible(input_file, output_file)
