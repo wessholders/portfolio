@@ -56,8 +56,8 @@ def excel_to_geojson_compatible(excel_path, geojson_path, lon_col='longitude', l
 
 if __name__ == '__main__':
     # The input for this script is the output from the first script
-    input_file = r'C:\SWG\GIS\SCRIPTS\Learn JavaScript\Boat Ramps\python\outputs\boat_ramps.xlsx'
+    input_file = r'Path\To\Your\Excel.xlsx'
     # Define a new name for the final GeoJSON to avoid overwriting your original
-    output_file = r'C:\SWG\GIS\SCRIPTS\Learn JavaScript\Boat Ramps\boat_ramps.geojson'
+    output_file = r'Path\To\Your\Output.geojson'
     
     excel_to_geojson_compatible(input_file, output_file)
