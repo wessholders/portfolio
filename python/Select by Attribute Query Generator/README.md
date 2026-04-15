@@ -2,7 +2,7 @@
 
 ## Overview
 
-This Python script is a simple but powerful productivity tool for GIS analysts who work with the Esri ArcGIS suite. It automates the tedious process of creating long SQL `IN` clauses for use in tools like "Select By Attributes" or for creating definition queries.
+The [SQL_Query_Generator.py](https://github.com/wessholders/portfolio/blob/main/python/Select%20by%20Attribute%20Query%20Generator/SQL_Query_Generator.py) Python script is a simple but powerful productivity tool for GIS analysts who work with the Esri ArcGIS suite. It automates the tedious process of creating long SQL `IN` clauses for use in tools like "Select By Attributes" or for creating definition queries.
 
 In many GIS workflows, analysts receive a list of hundreds of specific features to select or display from a much larger dataset. This list is often provided as an Excel spreadsheet. Manually typing each value into a query is time-consuming and prone to errors. This script solves that problem by reading a specified column from an Excel file and instantly generating a perfectly formatted SQL query, which it then copies to the clipboard.
 
