@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOAA Water Level Graph (ADDT2)</title>
-
     <!-- LIBRARIES (Scripts) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script
-        src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation/dist/chartjs-plugin-annotation.min.js"></script>
-
     <style>
         /* Basic setup to make the chart container fill the entire browser window. */
         html,
@@ -23,7 +19,6 @@
             font-family: sans-serif;
             background-color: #fff;
         }
-
         .chart-container {
             position: relative;
             width: 100%;
@@ -31,18 +26,17 @@
         }
     </style>
 </head>
-
 <body>
     <div class="chart-container">
         <canvas id="waterLevelChart"></canvas>
     </div>
-
     <script>
         // --- CONFIGURATION & INITIAL SETUP ---
         const url = 'https://api.water.noaa.gov/nwps/v1/gauges/ADDT2/stageflow';
         const ctx = document.getElementById('waterLevelChart').getContext('2d');
         const MINIMUM_INTERVAL_MINUTES = 15;
         const Y_AXIS_PADDING = 1;
+        const MAX_DEVIATION_FEET = 10.0; // Filter threshold for spikes
 
         // --- DATA FETCHING AND PROCESSING ---
         fetch(url)
@@ -55,18 +49,43 @@
                 if (!observedData || observedData.length === 0) throw new Error("No 'observed' data array found.");
 
                 const twentyFourHoursAgo = new Date(new Date().getTime() - (24 * 60 * 60 * 1000));
-                const recentReadings = observedData.filter(reading => {
+
+                // 1. Initial Clean: Check time, nulls, and -9999
+                let initialCleaned = observedData.filter(reading => {
                     const readingDate = new Date(reading.validTime);
-                    const hasValidPrimaryValue = reading.primary != null && !isNaN(parseFloat(reading.primary));
-                    return readingDate >= twentyFourHoursAgo && hasValidPrimaryValue;
+                    const parsedValue = parseFloat(reading.primary);
+                    // Omit if time is old, value is null/NaN, or value is -9999
+                    const hasValidValue = reading.primary != null && !isNaN(parsedValue) && parsedValue !== -9999;
+                    return readingDate >= twentyFourHoursAgo && hasValidValue;
                 });
 
-                if (recentReadings.length === 0) {
+                // Sort chronologically for spike detection
+                initialCleaned.sort((a, b) => new Date(a.validTime) - new Date(b.validTime));
+
+                // 2. Spike Filter: Omit values jumping more than 10ft from the previous valid point
+                const smoothReadings = [];
+                if (initialCleaned.length > 0) {
+                    smoothReadings.push(initialCleaned[0]); // Seed with first valid point
+                    
+                    for (let i = 1; i < initialCleaned.length; i++) {
+                        const currentVal = parseFloat(initialCleaned[i].primary);
+                        const lastValidVal = parseFloat(smoothReadings[smoothReadings.length - 1].primary);
+                        
+                        // Only add if the change is within 10 feet
+                        if (Math.abs(currentVal - lastValidVal) <= MAX_DEVIATION_FEET) {
+                            smoothReadings.push(initialCleaned[i]);
+                        } else {
+                            console.warn(`Spike detected at ${initialCleaned[i].validTime}: ${currentVal}ft. Omitted.`);
+                        }
+                    }
+                }
+
+                if (smoothReadings.length === 0) {
                     console.error("No valid data for the chart after filtering.");
                     return;
                 }
 
-                const thinnedReadings = thinOutData(recentReadings, MINIMUM_INTERVAL_MINUTES);
+                const thinnedReadings = thinOutData(smoothReadings, MINIMUM_INTERVAL_MINUTES);
 
                 if (thinnedReadings.length > 0) {
                     buildChart(thinnedReadings);
@@ -83,7 +102,6 @@
          */
         function thinOutData(readings, intervalMinutes) {
             readings.sort((a, b) => new Date(a.validTime) - new Date(b.validTime));
-
             if (readings.length <= 1) return readings;
 
             const thinned = [readings[0]];
@@ -102,14 +120,12 @@
             if (thinned[thinned.length - 1].validTime !== lastOriginalReading.validTime) {
                 thinned.push(lastOriginalReading);
             }
-
             return thinned;
         }
 
         // --- CHART BUILDING FUNCTION ---
         function buildChart(readings) {
             readings.sort((a, b) => new Date(a.validTime) - new Date(b.validTime));
-
             const dataPoints = readings.map(reading => ({
                 x: new Date(reading.validTime).valueOf(),
                 y: parseFloat(reading.primary)
@@ -123,7 +139,6 @@
             const dataMin = Math.min(...yValues);
             const dataMax = Math.max(...yValues);
 
-            // --- KEY CHANGE: Round the calculated min/max to the nearest 0.5 foot ---
             // Round the minimum value DOWN to the nearest 0.5 foot.
             const chartMin = Math.floor((dataMin - Y_AXIS_PADDING) * 2) / 2;
             // Round the maximum value UP to the nearest 0.5 foot.
@@ -170,7 +185,6 @@
                         y: {
                             beginAtZero: false,
                             title: { display: false },
-                            // Use the final rounded min and max for the y-axis.
                             min: chartMin,
                             max: chartMax
                         }
@@ -179,7 +193,11 @@
                         legend: { display: false },
                         tooltip: {
                             callbacks: {
-                                title: (context) => new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', dateStyle: 'medium', timeStyle: 'short' }).format(new Date(context[0].parsed.x)),
+                                title: (context) => new Intl.DateTimeFormat('en-US', { 
+                                    timeZone: 'America/Chicago', 
+                                    dateStyle: 'medium', 
+                                    timeStyle: 'short' 
+                                }).format(new Date(context[0].parsed.x)),
                                 label: (context) => `Level: ${context.parsed.y.toFixed(2)} ft`
                             }
                         },
@@ -211,5 +229,4 @@
         }
     </script>
 </body>
-
 </html>
