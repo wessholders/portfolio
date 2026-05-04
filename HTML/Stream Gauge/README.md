@@ -31,6 +31,7 @@ This allows users to go from a macro, geographic view to a micro, time-series an
 *   **Data Thinning:** Reduces data density to ensure a smooth, clean line graph.
 *   **Dynamic Y-Axis:** The vertical axis (Y-axis) automatically scales based on the 24-hour water levels. Values are in **feet above sea level**.
 *   **Timezone Aware:** All times are displayed in the `America/Chicago` timezone.
+*  **QA/QC Filters:** Data quality is maintained through the use of a **null value** filter and **spike** filter (any value that is +- 10' then the previous reading).
 
 ---
 
